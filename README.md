@@ -10,7 +10,7 @@ The main purpose of this project is to develop, manage, and expand the online pr
 
 Personalization, customization, and ease of access are paramount to the design philosophy of the individual content creator who also takes on the responsibility of the webmaster.
 
-Consequently, the proposed features need to adapt to the bandwidth of a solo developer. If complex features are to be implemented, then they should be maintainable by one person at all times. The static contents and interactive components within webpages are expected to be rendered responsively to the end user. When uploading music videos to the website, the developer will be a special end user known as the site administrator. Therefore for regular user and developer alike, the UI navigation must be intuitive and free of contradictions.
+Consequently, the proposed features need to adapt to the bandwidth of a solo developer. If complex features are to be implemented, then they should be maintainable by one person at all times. The static contents and interactive components within webpages are expected to be rendered responsively to the end user. When uploading music videos to the website, the developer will be a special end user who receives administrative privileges. Therefore for regular user and developer alike, the UI navigation must be intuitive and free of contradictions.
 
 During the early stages of the application post-deployment, only a small database will be necessary while handling low subscriber count. Scaling will be considered only when site traffic reaches a critical threshold beyond the carrying capacity of the application.
 
