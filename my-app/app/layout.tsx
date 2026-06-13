@@ -1,5 +1,15 @@
+import Navbar from "@/components/navbar";
+import Socials_Copyright from "@/components/socials_copyright";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Great_Vibes,
+  Playfair_Display,
+  Poppins,
+  Red_Hat_Display,
+  Roboto,
+} from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -9,6 +19,35 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+/* CONSIDER THESE FONTS: Great_Vibes, Roboto, Playfair_Display, Red_Hat_Display, Poppins */
+
+const greatVibes = Great_Vibes({
+  variable: "--font-great-vibes",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+});
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfairDisplay",
+  subsets: ["latin"],
+});
+
+const redHatDisplay = Red_Hat_Display({
+  variable: "--font-redHatDisplay",
+  subsets: ["latin"],
+});
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
 
@@ -25,9 +64,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} 
+      ${greatVibes.variable} ${roboto.variable} 
+      ${playfairDisplay.variable} ${redHatDisplay.variable} 
+      ${poppins.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar />
+
+        {children}
+
+        {/* Socials + Copyright Section */}
+        <Socials_Copyright />
+      </body>
     </html>
   );
 }

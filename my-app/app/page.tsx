@@ -1,7 +1,16 @@
-import Image from "next/image";
+"use client";
+
+import ImageTabs from "@/components/image-tabs";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from "lucide-react";
+import Link from "next/link";
+
+const scrollToSection = (id: string) => {
+  document.getElementById(id)?.scrollIntoView();
+};
 
 export default function Home() {
-  return (
+  /* return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
@@ -59,6 +68,120 @@ export default function Home() {
             Documentation
           </a>
         </div>
+      </main>
+    </div>
+  ); */
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="flex py-32 bg-black relative min-h-screen">
+          <div
+            className="absolute inset-0 
+            bg-[url('../public/hero-images/AI_Generated_Basement_Studio.png')]
+            bg-cover bg-center"
+          />
+          <div className="absolute inset-0 bg-black/70" />
+          <div className="flex flex-col justify-center container mx-auto px-4 max-w-4xl text-center relative z-10">
+            <h1
+              className={`font-great-vibes font-bold tracking-wider text-amber-400 mb-8 text-8xl [text-shadow:0_10px_20px_rgba(255,215,0,0.5),10px_0_20px_rgba(255,215,0,0.5)]`}
+            >
+              Steven Sun
+            </h1>
+            {/* text-amber-100 */}
+            <h2 className="font-poppins font-bold text-white italic mb-6 text-2xl">
+              Keywords · describing · Steven's · Core · Skills
+            </h2>
+            {/* text-amber-100 */}
+            <h1 className="font-poppins text-white mb-6 text-xl">
+              Something about Professional Vibemaster
+            </h1>
+            {/* text-amber-100 */}
+            <p className="font-poppins text-white mb-6 text-xl">
+              15-word-max location-based introduction to Steven's personal
+              background
+            </p>
+            <div className="font-redHatDisplay flex flex-col items-center gap-6">
+              <Link href="/music">
+                <Button
+                  /* size="lg" */
+                  className="h-12 px-8 text-xl font-bold bg-destructive hover:text-black cursor-pointer rounded-full"
+                >
+                  Music <ArrowRight className="ml-2" />
+                </Button>
+              </Link>
+              <div className="flex gap-4">
+                <Link href="/updates">
+                  <Button
+                    /* size="lg" */
+                    /* border border-solid border-black/[.08] */
+                    className="h-9 px-6 text-base bg-transparent border-white hover:text-amber-400 hover:border-amber-400 cursor-pointer rounded-full"
+                  >
+                    Updates
+                  </Button>
+                </Link>
+                <Button
+                  className="h-9 px-6 text-base bg-transparent border-white hover:text-amber-400 hover:border-amber-400 cursor-pointer rounded-full"
+                  onClick={() => scrollToSection("contact")}
+                >
+                  Contact
+                </Button>
+              </div>
+              {/* <p className="text-sm text-muted-foreground">
+                professionalvibemaster@stevensun.com
+              </p> */}
+            </div>
+          </div>
+        </section>
+
+        {/* Hero Image Section with Tabs */}
+        <ImageTabs />
+
+        {/* Features Section */}
+        <section className="border-t bg-white py-24">
+          <div className="container mx-auto px-4">
+            {/* Apply md only when the screen is at least the Medium breakpoint (768px and wider). */}
+            <div className="grid gap-12 md:grid-cols-3">
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+                  <Briefcase className="h-6 w-6 text-red-500" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Organize Applications
+                </h3>
+                <p className="text-muted-foreground">
+                  Create custom boards and columns to track your job
+                  applications at every stage of the process.
+                </p>
+              </div>
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+                  <TrendingUp className="h-6 w-6 text-red-500" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Track Progress
+                </h3>
+                <p className="text-muted-foreground">
+                  Monitor your application status from applied to interview to
+                  offer with visual Kanban boards.
+                </p>
+              </div>
+              <div className="flex flex-col">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+                  <CheckCircle2 className="h-6 w-6 text-red-500" />
+                </div>
+                <h3 className="mb-3 text-2xl font-semibold text-black">
+                  Stay Organized
+                </h3>
+                <p className="text-muted-foreground">
+                  Never lose track of an application. Keep all your job search
+                  information in one centralized place.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
