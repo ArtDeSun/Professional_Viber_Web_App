@@ -4,10 +4,11 @@ import Link from "next/link";
 
 export default function getAbout() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* <p>Read more to learn about the Professional Vibemaster</p> */}
+    <div className="flex flex-col min-h-screen">
+      {/* <p>Read more to learn about the Professional
+       Vibemaster</p> */}
       <main className="flex-1">
-        <section className="container mx-auto px-4 py-32">
+        <section className="mx-auto px-4 py-32">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-black mb-6 text-5xl font-bold [text-shadow:0_0_8px_rgba(255,215,0,0.5)]">
               Meet THE Professional Vibemaster You've Always Wanted
@@ -17,8 +18,10 @@ export default function getAbout() {
               Certification in Piano Performance, Steven excels at performing
               and digitalizing immersive entertainment experiences. You can find
               Steven singing jazz standards in live venues while accompanying
-              himself on the piano, and explore a catalogue of educational music
-              videos published using a DIY production pipeline.
+              himself on the piano. You can also explore a curated catalogue of
+              recordings and a practical guide to learning piano accompaniment
+              for popular songs. Steven mixes and produces all of his music
+              videos in house.
             </p>
             <p className="text-muted-foreground mb-8 text-xl">
               Striving to reinvent the independent artist in the streaming era,

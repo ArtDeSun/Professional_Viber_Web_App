@@ -73,17 +73,20 @@ export default function Home() {
   ); */
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="flex py-32 bg-black relative min-h-screen">
+        <section
+          /* id="steven_sun" */
+          className="flex py-32 px-4 bg-black relative min-h-screen"
+        >
           <div
             className="absolute inset-0 
             bg-[url('../public/hero-images/AI_Generated_Basement_Studio.png')]
             bg-cover bg-center"
           />
           <div className="absolute inset-0 bg-black/70" />
-          <div className="flex flex-col justify-center container mx-auto px-4 max-w-4xl text-center relative z-10">
+          <div className="flex flex-col justify-center container mx-auto max-w-4xl text-center relative z-10">
             <h1
               className={`font-great-vibes font-bold tracking-wider text-amber-400 mb-8 text-8xl [text-shadow:0_10px_20px_rgba(255,215,0,0.5),10px_0_20px_rgba(255,215,0,0.5)]`}
             >
@@ -121,11 +124,24 @@ export default function Home() {
                     Updates
                   </Button>
                 </Link>
+
+                {/* asChild makes the Link look like a Button */}
                 <Button
+                  asChild
                   className="h-9 px-6 text-base bg-transparent border-white hover:text-amber-400 hover:border-amber-400 cursor-pointer rounded-full"
-                  onClick={() => scrollToSection("contact")}
                 >
-                  Contact
+                  <Link
+                    href="/#contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.pushState(null, "", "#contact");
+                      document.getElementById("contact")?.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    Contact
+                  </Link>
                 </Button>
               </div>
               {/* <p className="text-sm text-muted-foreground">

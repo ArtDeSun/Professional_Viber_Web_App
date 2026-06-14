@@ -1,8 +1,14 @@
+"use client";
+
 import { Piano } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   return (
     /* border-b border-gray-200  */
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xs bg-gradient-to-b from-black/80 via-black/80 via-20% to-transparent">
@@ -10,6 +16,13 @@ export default function Navbar() {
         <Link
           href="/"
           className="flex items-center gap-2 text-xl font-semibold text-gray-300"
+          onClick={(e) => {
+            if (isHomePage) {
+              e.preventDefault();
+              history.pushState(null, "", "/");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
         >
           <Piano />
           Home
