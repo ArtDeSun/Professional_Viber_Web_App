@@ -36,7 +36,8 @@ export default function SignUp() {
       if (result.error) {
         setError(result.error.message ?? "Failed to sign up");
       } else {
-        router.push("/dashboard");
+        //router.push("/dashboard");
+        window.location.href = "/";
       }
     } catch (err) {
       setError("An unexpected error occurred");

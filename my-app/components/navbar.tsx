@@ -4,6 +4,7 @@ import { Piano } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import NavbarRightCorner from "./navbar-right-corner";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
@@ -30,26 +31,24 @@ export default function Navbar() {
     return () => clearTimeout(timer);
   }, [pathname]);
 
-  /*   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isHomePage && isAtTop) {
-      e.preventDefault();
-      triggerNavbarAnimation();
-    }
-  }; */
-
   return (
     /* border-b border-gray-200  */
-    /* <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xs bg-gradient-to-b from-black/80 via-black/80 via-20% to-transparent"> */
+    /* <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xs 
+    bg-gradient-to-b from-black/80 via-black/80 via-20% to-transparent"> */
     <nav
       className={`fixed top-0 left-0 right-0 w-full z-50 backdrop-blur-xs 
-                     bg-gradient-to-b from-black/80 via-black/80 via-20% to-transparent
-                     ${animate ? "transition-all duration-1000 ease-[cubic-bezier(0.30,1,0.50,1)]" : "transition-none"}
-                     ${visible ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
+                  bg-gradient-to-b from-black/80 via-black/80 via-20% to-transparent
+                  ${
+                    animate
+                      ? "transition-all duration-1000 ease-[cubic-bezier(0.30,1,0.50,1)]"
+                      : "transition-none"
+                  }
+                  ${visible ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"}`}
     >
       <div className="container mx-auto flex items-center h-24 px-4 justify-between font-playfairDisplay">
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-semibold text-gray-300"
+          className="w-60 flex items-center gap-2 text-xl font-semibold text-gray-300"
           onClick={(e) => {
             if (window.scrollY === 0 && pathname === "/") {
               e.preventDefault();
@@ -62,7 +61,7 @@ export default function Navbar() {
           }}
         >
           <Piano />
-          Home
+          Steven Sun
         </Link>
         {/* CONSIDER THIS: className="md:grid-cols-4" */}
         <div className="flex gap-5">
@@ -85,7 +84,10 @@ export default function Navbar() {
             </Button>
           </Link>
           <Link href="/youtube">
-            <Button className="h-10 w-28 bg-destructive text-gray-300 text-xl rounded-xl hover:text-black cursor-pointer">
+            <Button
+              className="h-10 w-28 bg-destructive text-gray-300 text-xl rounded-xl 
+                         hover:text-black cursor-pointer"
+            >
               Youtube
             </Button>
           </Link>
@@ -113,12 +115,10 @@ export default function Navbar() {
             </Button>
           </Link>
         </div>
-        <div className="flex">
-          <Link href="/lessons">
-            <Button className="h-10 w-28 bg-amber-600 text-gray-300 text-xl rounded-xl hover:bg-amber-600/70 cursor-pointer">
-              Lessons
-            </Button>
-          </Link>
+
+        <div className="w-60 flex items-center gap-4">
+          {/* Should disappear once a user has signed in*/}
+          <NavbarRightCorner />
         </div>
       </div>
     </nav>

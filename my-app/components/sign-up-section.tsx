@@ -29,14 +29,15 @@ export default function SignUpSection() {
     e.preventDefault();
 
     setError("");
-    setLoading(true); //needs to accept Boolean
+    setLoading(true);
 
     try {
       const result = await signUp.email({ name, email, password });
       if (result.error) {
         setError(result.error.message ?? "Failed to sign up");
       } else {
-        router.push("/dashboard");
+        //router.push("/dashboard");
+        window.location.href = "/dashboard";
       }
     } catch (err) {
       setError("An unexpected error occurred");

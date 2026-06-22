@@ -3,6 +3,7 @@
 import ImageTabs from "@/components/image-tabs";
 import SignUpSection from "@/components/sign-up-section";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth/auth-client";
 import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,7 +13,18 @@ const scrollToSection = (id: string) => {
 };
 
 export default function Home() {
+  const { data: session, isPending } = useSession();
   const [visible, setVisible] = useState(false);
+
+  const [initialAuthChecked, setInitialAuthChecked] = useState(false);
+  useEffect(() => {
+    if (!isPending && !initialAuthChecked) {
+      setInitialAuthChecked(true);
+    }
+  }, [isPending, initialAuthChecked]);
+  const isLoggedIn = Boolean(session?.user);
+  const showLoggedOutButtons = initialAuthChecked && !isLoggedIn;
+  //const showLoggedOutButtons = !isPending && !session?.user;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -138,24 +150,27 @@ export default function Home() {
                   </Button>
                 </Link> */}
 
-                {/* asChild makes the Link look like a Button */}
-                <Button
-                  asChild
-                  className="h-9 px-6 text-base text-gray-300 bg-transparent border-white hover:text-amber-400 hover:border-amber-400 cursor-pointer rounded-full"
-                >
-                  <Link
-                    href="/#signup"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      history.pushState(null, "", "#signup");
-                      document.getElementById("signup")?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                    }}
+                {/* asChild makes the Link behave like a Button */}
+                {showLoggedOutButtons && (
+                  <Button
+                    asChild
+                    className="h-9 px-6 text-base text-gray-300 bg-transparent border-white hover:text-amber-400 hover:border-amber-400 cursor-pointer rounded-full"
                   >
-                    Sign Up
-                  </Link>
-                </Button>
+                    <Link
+                      href="/#signup"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history.pushState(null, "", "#signup");
+                        document.getElementById("signup")?.scrollIntoView({
+                          behavior: "smooth",
+                        });
+                      }}
+                    >
+                      Sign Up
+                    </Link>
+                  </Button>
+                )}
+
                 {/* asChild makes the Link look like a Button */}
                 <Button
                   asChild
@@ -175,6 +190,19 @@ export default function Home() {
                   </Link>
                 </Button>
               </div>
+
+              {showLoggedOutButtons && (
+                <Link href="/lessons">
+                  <div className="h-11 flex items-center">
+                    <Button
+                      /* size="lg" */
+                      className="h-9 px-6 text-lg font-bold text-black bg-gray-300 hover:bg-white hover:h-11 hover:px-8 hover:text-xl cursor-pointer rounded-full"
+                    >
+                      Lessons
+                    </Button>
+                  </div>
+                </Link>
+              )}
               {/* <p className="text-sm text-muted-foreground">
                 professionalvibemaster@stevensun.com
               </p> */}
@@ -186,15 +214,27 @@ export default function Home() {
         <ImageTabs />
 
         {/* Features Section */}
-        <section className="border-t bg-white py-24">
+        <section className="border-t border-white/15 bg-neutral-950 py-24">
           <div className="container mx-auto px-4">
             {/* Apply md only when the screen is at least the Medium breakpoint (768px and wider). */}
             <div className="grid gap-12 md:grid-cols-3">
-              <div className="flex flex-col">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+              <div
+                className="group flex flex-col bg-neutral-50 rounded-xl p-6
+                              border border-white/5
+                              ring-2 ring-amber-300
+                              transition-all duration-300
+                              hover:-translate-y-2
+                              hover:shadow-[0_0_30px_rgba(251,191,36,0.95)]  
+                              "
+              >
+                <div
+                  className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl
+                                bg-gradient-to-br from-amber-300 via-amber-200 to-orange-100
+                                ring-1 ring-amber-300/50 shadow-[0_0_30px_rgba(251,191,36,0.95)]"
+                >
                   <Briefcase className="h-6 w-6 text-red-500" />
                 </div>
-                <h3 className="mb-3 text-2xl font-semibold text-black">
+                <h3 className="mb-3 text-2xl font-semibold text-gray-700">
                   Organize Applications
                 </h3>
                 <p className="text-muted-foreground">
@@ -202,11 +242,22 @@ export default function Home() {
                   applications at every stage of the process.
                 </p>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+              <div
+                className="group flex flex-col bg-neutral-50 rounded-xl p-6
+                              border border-white/5
+                              ring-2 ring-purple-300
+                              transition-all duration-300
+                              hover:-translate-y-2
+                              hover:shadow-[0_0_30px_rgba(216,180,254,0.95)]"
+              >
+                <div
+                  className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl
+                                bg-gradient-to-br from-purple-300 via-fuchsia-200 to-rose-100
+                                ring-1 ring-purple-300/50 shadow-[0_0_30px_rgba(216,180,254,0.95]"
+                >
                   <TrendingUp className="h-6 w-6 text-red-500" />
                 </div>
-                <h3 className="mb-3 text-2xl font-semibold text-black">
+                <h3 className="mb-3 text-2xl font-semibold text-gray-700">
                   Track Progress
                 </h3>
                 <p className="text-muted-foreground">
@@ -214,11 +265,22 @@ export default function Home() {
                   offer with visual Kanban boards.
                 </p>
               </div>
-              <div className="flex flex-col">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10">
+              <div
+                className="group flex flex-col bg-neutral-50 rounded-xl p-6
+                              border border-white/5
+                              ring-2 ring-rose-300
+                              transition-all duration-300
+                              hover:-translate-y-2
+                              hover:shadow-[0_0_30px_rgba(251,113,133,0.95)]"
+              >
+                <div
+                  className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl
+                                bg-gradient-to-br from-rose-300 via-pink-200 to-red-100
+                                ring-1 ring-rose-300/50 shadow-[0_0_30px_rgba(251,113,133,0.95)]"
+                >
                   <CheckCircle2 className="h-6 w-6 text-red-500" />
                 </div>
-                <h3 className="mb-3 text-2xl font-semibold text-black">
+                <h3 className="mb-3 text-2xl font-semibold text-gray-700">
                   Stay Organized
                 </h3>
                 <p className="text-muted-foreground">
@@ -231,7 +293,9 @@ export default function Home() {
         </section>
 
         {/* Sign Up Section */}
-        <SignUpSection />
+        {showLoggedOutButtons && <SignUpSection />}
+        {/* {session?.user ? <></> : <SignUpSection />} */}
+        {/*<SignUpSection />*/}
       </main>
     </div>
   );

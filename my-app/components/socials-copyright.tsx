@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaSpotify, FaYoutube } from "react-icons/fa";
+import {
+  FaCopyright,
+  FaFacebook,
+  FaInstagram,
+  FaSpotify,
+  FaYoutube,
+} from "react-icons/fa";
 
 export default function SocialsCopyright() {
   return (
-    <section id="contact" className="border-t bg-black py-12">
+    <section id="contact" className="border-t border-white/15 bg-black py-12">
       <div className="container mx-auto px-4 text-center font-roboto">
         <p className="text-lg text-gray-300">
           Inquiries:{" "}
@@ -61,7 +67,10 @@ export default function SocialsCopyright() {
             />
           </Link>
         </div>
-        <p className="text-gray-300">Copyright 2026 by Steven Sun</p>
+        <div className="flex items-center justify-center gap-2">
+          <FaCopyright className="text-gray-300" />
+          <p className="text-gray-300">2026 Steven Sun</p>
+        </div>
       </div>
     </section>
   );

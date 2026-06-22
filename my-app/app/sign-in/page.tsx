@@ -28,18 +28,19 @@ export default function SignIn() {
     e.preventDefault();
 
     setError("");
-    setLoading(true); //needs to accept Boolean
+    setLoading(true);
 
     try {
       const result = await signIn.email({ email, password });
       if (result.error) {
         setError(result.error.message ?? "Failed to sign in");
-      } else {
-        router.push("/dashboard");
+        setLoading(false);
+        return;
       }
+      //router.push("/dashboard");
+      window.location.href = "/";
     } catch (err) {
       setError("An unexpected error occurred");
-    } finally {
       setLoading(false);
     }
   }

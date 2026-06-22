@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 /* CONSIDER THESE FONTS: Great_Vibes, Roboto, Playfair_Display, Red_Hat_Display, Poppins 
-                         Manrope, (Tahoma, Verdana, Georgia) */
+                         Manrope, Figtree, (Tahoma, Verdana, Georgia, Gotham_Light) */
 
 const greatVibes = Great_Vibes({
   variable: "--font-great-vibes",
