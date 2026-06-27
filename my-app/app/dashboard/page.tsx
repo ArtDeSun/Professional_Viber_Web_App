@@ -1,4 +1,5 @@
-import KanbanBoard from "@/components/kanban-board";
+/* import KanbanBoard from "@/components/kanban-board"; */
+import KanbanBoardClient from "@/components/kanban-board-client";
 import { getSession } from "@/lib/auth/auth";
 import connectDB from "@/lib/db";
 import { Board } from "@/lib/models";
@@ -30,14 +31,12 @@ async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-black">
-      <div className="container mx-auto px-6 py-32">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-neutral-100">{board.name}</h1>
-          <p className="text-neutral-400">Track your job applications</p>
-        </div>
-        <KanbanBoard board={board} userId={session.user.id} />
+    <div className="container mx-auto px-6 py-32">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-neutral-100">{board.name}</h1>
+        <p className="text-neutral-400">Track your job applications</p>
       </div>
+      <KanbanBoardClient board={board} userId={session.user.id} />
     </div>
   );
 }
@@ -66,8 +65,16 @@ export default async function getDashBoard() {
   ); */
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <DashboardPage />
-    </Suspense>
+    <div className="min-h-screen w-full bg-black">
+      <Suspense
+        fallback={
+          <div className="container mx-auto min-h-screen px-6 py-32">
+            <h1 className="text-3xl font-bold text-neutral-100">Loading ...</h1>
+          </div>
+        }
+      >
+        <DashboardPage />
+      </Suspense>
+    </div>
   );
 }

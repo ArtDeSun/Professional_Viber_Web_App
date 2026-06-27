@@ -69,9 +69,10 @@ export default function CreateJobApplicationDialog({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-neutral-100 hover:bg-neutral-200"
+          className="w-full mb-4 justify-start border-dashed border-2 bg-neutral-100 
+                     hover:border-solid hover:bg-neutral-200"
         >
-          <Plus />
+          <Plus className="mr-2 h-4 w-4" />
           Add Job
         </Button>
       </DialogTrigger>
