@@ -31,6 +31,9 @@ async function connectDB() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      //Avoid hardcoding in the future: MONGODB_DB_NAME
+      //process.env.MONGODB_DB_NAME
+      dbName: "job-board",
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

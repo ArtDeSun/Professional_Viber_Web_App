@@ -7,7 +7,9 @@ import { initializeUserBoard } from "../init-user-board";
 
 const client = new MongoClient(process.env.MONGODB_URI!);
 
-const db = client.db();
+//Avoid hardcoding in the future: MONGODB_DB_NAME
+//process.env.MONGODB_DB_NAME
+const db = client.db("job-board");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { client }),
