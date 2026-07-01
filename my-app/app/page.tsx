@@ -5,6 +5,7 @@ import SignUpSection from "@/components/sign-up-section";
 import { Button } from "@/components/ui/button";
 import { useSession } from "@/lib/auth/auth-client";
 import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,8 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const { data: session, isPending } = useSession();
+  const [heroImageLoaded, setHeroImageLoaded] = useState(false);
+  const [heroBackgroundVisible, setHeroBackgroundVisible] = useState(false);
   const [visible, setVisible] = useState(false);
 
   const [initialAuthChecked, setInitialAuthChecked] = useState(false);
@@ -26,12 +29,18 @@ export default function Home() {
   const isLoggedIn = Boolean(session?.user);
 
   useEffect(() => {
-    if (!initialAuthChecked) return;
-    const timer = setTimeout(() => {
-      setVisible(true);
+    if (!initialAuthChecked || !heroImageLoaded) return;
+    const backgroundTimer = setTimeout(() => {
+      setHeroBackgroundVisible(true);
     }, 100);
-    return () => clearTimeout(timer);
-  }, [initialAuthChecked]);
+    const contentTimer = setTimeout(() => {
+      setVisible(true);
+    }, 900);
+    return () => {
+      clearTimeout(backgroundTimer);
+      clearTimeout(contentTimer);
+    };
+  }, [initialAuthChecked, heroImageLoaded]);
   /* return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
@@ -102,10 +111,19 @@ export default function Home() {
           /* id="steven_sun" */
           className="flex py-32 px-4 bg-black relative min-h-screen"
         >
-          <div
+          {/* <div
             className="absolute inset-0 
             bg-[url('../public/hero-images/AI_Generated_Basement_Studio.png')]
             bg-cover bg-center"
+          /> */}
+          <Image
+            src="/hero-images/AI_Generated_Basement_Studio.png"
+            alt=""
+            fill
+            priority
+            onLoad={() => setHeroImageLoaded(true)}
+            className={`object-cover object-center transition-all duration-[1400ms] ease-out
+                        ${heroBackgroundVisible ? "opacity-100" : "opacity-0"}`}
           />
           <div className="absolute inset-0 bg-black/70" />
           <div
