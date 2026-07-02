@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/auth/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function SignUp() {
@@ -23,25 +22,27 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
+  const [signingUp, setSigningUp] = useState(false);
 
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
     setError("");
-    setLoading(true); //needs to accept Boolean
+    setLoading(true);
+    setSigningUp(true);
 
     try {
       const result = await signUp.email({ name, email, password });
       if (result.error) {
+        setSigningUp(false);
         setError(result.error.message ?? "Failed to sign up");
-      } else {
-        //router.push("/dashboard");
-        window.location.href = "/";
+        setLoading(false);
+        return;
       }
+      window.location.replace("/");
     } catch (err) {
+      setSigningUp(false);
       setError("An unexpected error occurred");
-    } finally {
       setLoading(false);
     }
   }

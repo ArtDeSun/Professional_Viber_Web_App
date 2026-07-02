@@ -32,9 +32,12 @@ export default function NavbarRightCorner() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [signingOut, setSigningOut] = useState(false);
+
   const handleSignOut = async () => {
     setError("");
     setLoading(true);
+    setSigningOut(true);
 
     try {
       const result = await signOut();
@@ -42,45 +45,40 @@ export default function NavbarRightCorner() {
         setError(result.error.message ?? "Failed to log out");
         alert("Error signing out");
       } else {
-        //router.push("/");
-        //window.location.href = "/";
-        //router.refresh();
-        window.location.reload();
+        if (pathname === "/dashboard") {
+          window.location.replace("/");
+        } else {
+          //router.push("/");
+          //window.location.href = "/";
+          //router.refresh();
+          window.location.reload();
+        }
       }
     } catch (err) {
+      setSigningOut(false);
       setError("An unexpected error occurred");
     } finally {
       setLoading(false);
     }
   };
 
+  if (pathname === "/sign-in" || signingOut) {
+    return <></>;
+  }
+
   return (
     <>
       {!initialAuthChecked ? (
         <></>
       ) : !isLoggedIn ? (
-        <>
-          {/* <Link href="/lessons">
-                <Button className="h-10 w-28 bg-amber-600 text-black text-xl rounded-xl 
-                                   hover:bg-amber-400 cursor-pointer">
-                  Lessons
-                </Button>
-              </Link> */}
-          {pathname === "/sign-in" ? (
-            <></>
-          ) : (
-            <>
-              <Link href="/sign-in" className="mx-auto">
-                <Button
-                  className="h-10 w-28 bg-amber-600 text-black text-xl rounded-xl 
+        <Link href="/sign-in" className="mx-auto">
+          <Button
+            className="h-10 w-28 bg-amber-600 text-black text-xl rounded-xl 
                              hover:bg-amber-400 cursor-pointer"
-                >
-                  Sign In
-                </Button>
-              </Link>
-            </>
-          )}
-        </>
+          >
+            Sign In
+          </Button>
+        </Link>
       ) : (
         <>
           <Link href="/dashboard" className="flex items-center">

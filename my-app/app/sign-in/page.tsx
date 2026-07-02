@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn, useSession } from "@/lib/auth/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function SignIn() {
@@ -30,7 +29,7 @@ export default function SignIn() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
+  /* const router = useRouter(); */
 
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
@@ -46,7 +45,7 @@ export default function SignIn() {
         return;
       }
       //router.push("/dashboard");
-      window.location.href = "/";
+      //window.location.href = "/";
     } catch (err) {
       setError("An unexpected error occurred");
       setLoading(false);
